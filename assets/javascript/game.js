@@ -4,6 +4,7 @@ var material = ["ardmore", "balvinie", "bowmore", "caolila", "dalwhinne", "glenf
  "glenmorangie", "jura", "lagavulin", "laphroaig", "macallan", "oban", "talisker"];
 var gamesWon = 0;
 var gamesLost = 0;
+
 var guess = "";
 var playerDisplay = [];
 var won = false;
@@ -33,7 +34,29 @@ var endPlay = false;
         //console.log('Key that was pressed: ' + guess);
         //console.log("Letter used " + usedLetters.indexOf(guess));
         if(endPlay) {
-            document.getElementById("message").innerHTML = "Game over. Refresh Browser to play again"
+            document.getElementById("gamesWon").innerHTML = gamesWon;
+            document.getElementById("gamesLost").innerHTML = gamesLost;
+            //document.getElementById("message").innerHTML = "Game over. Refresh Browser to play again"
+            console.log("end play " + endPlay)
+            guess = "";
+            playerDisplay = [];
+            endPlay = false;
+            usedLetters =[];
+            usedLettersDisplay = [];
+            answer = [];
+            playerGuess = false
+            indexGuess = 0;
+            selection = [];
+            selection = material[Math.floor(Math.random() * material.length)];
+   
+            for (i=0; i<selection.length; i++) {
+                playerDisplay[i*2] = " ";
+                playerDisplay[i*2+1] = "_";
+            }   
+            document.getElementById("results").innerHTML = playerDisplay.join(""); 
+            document.getElementById("numGuess").innerHTML = numGuess;
+            //console.log("The selection is " + selection);
+            document.getElementById("message").innerHTML = "Game over - Play again";
         }
         else{
 
@@ -81,12 +104,14 @@ var endPlay = false;
                         
                         document.getElementById("message").innerHTML = "Congratulations - You have won the Game";
                         endPlay = true;
+                        gamesWon = gamesWon + 1;
                         console.log(endPlay);
                     } 
                     if (numGuessLeft === 0) {                        
                         
                         document.getElementById("message").innerHTML = "You have lost the Game";
                         endPlay = true;
+                        gamesLost = gamesLost + 1;
                         console.log(endPlay);
                     }
                     else if (numGuessLeft < 0) {
